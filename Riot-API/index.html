@@ -7,15 +7,41 @@
     <link rel="stylesheet" href="styles.css" >
 </head>
 <body>
+
+    <header>
+        <a href=""><img src="img/logofull_noir.png" alt="Logo"/></a>
+        <nav>
+            <ul>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+
+
     <main>
         <section>
-            <div class="container">
-                <h1>League of Legends Player Searcher</h1>
-                <input type="text"/>
-                <button>Search for player</button>
+            <div class="title">
+                <img src="img/logofull_noir.png" alt="Logo"/>
+                <h1>Improve your Macro faster with Quiz</h1>
+            </div>
+
+            <div class="filters">
+                <div class="container">
+                    <button type="button" class="role" id="default-button" data-value="roles"><span>All Roles</span><img src="img/logofull_noir.png" alt="Logo"/></button>
+                    <div class="roles-filter hide" id="filters_div">
+                        <button type="button" class="role" data-value="roles"><span>All Roles</span><img src="img/logofull_noir.png" alt="Logo"/></button>
+                        <button type="button" class="top" data-value="top"><span>Top</span><img src="img/logofull_noir.png" alt="Logo"/></button>
+                        <button type="button" class="jgl" data-value="jgl"><span>Jungle</span><img src="img/logofull_noir.png" alt="Logo"/></button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+
+
+    <footer>
+
+    </footer>
     
     <script src="./app.js" type="module" defer></script>
 </body>
