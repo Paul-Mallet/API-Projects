@@ -12,5 +12,8 @@
     "url": "Paul-Mallet"
   },
   "author": "Paul",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.19.2"
+  }
 }
