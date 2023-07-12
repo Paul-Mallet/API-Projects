@@ -1,4 +1,5 @@
 import Fastify from 'fastify'
+import dbConnector from './our-db-connector'
 import { routes as firstRoute } from './our-first-route.js'
 
 const fastify = Fastify({
@@ -6,6 +7,7 @@ const fastify = Fastify({
 })
 
 // Declare a route  / import route(1rst plugin)
+fastify.register(dbConnector)
 fastify.register(firstRoute)  //register() : API qui permet d'add plugins, routes...
 
 // Run the server!
