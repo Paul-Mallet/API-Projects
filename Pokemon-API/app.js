@@ -5,11 +5,11 @@ const fastify = Fastify({
   logger: false //see server infos
 })
 
-// Declare a route  / import route
+// Declare a route  / import route(1rst plugin)
 fastify.register(firstRoute)  //register() : API qui permet d'add plugins, routes...
 
 // Run the server!
-const start = async () => {
+const start = async () => { //voir si await est pas en trop
   try {
     await fastify.listen({ port: 8000, host: '127.0.0.1' })
   } catch (err) {
