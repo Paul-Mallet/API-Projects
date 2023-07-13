@@ -13,5 +13,8 @@
     "url": "Paul-Mallet"
   },
   "author": "Paul",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
