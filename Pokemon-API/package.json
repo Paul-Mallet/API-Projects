@@ -13,10 +13,5 @@
     "url": "Paul-Mallet"
   },
   "author": "Paul",
-  "license": "ISC",
-  "dependencies": {
-    "@fastify/mongodb": "^7.0.0",
-    "fastify": "^4.19.2",
-    "fastify-plugin": "^4.5.0"
-  }
+  "license": "ISC"
 }
