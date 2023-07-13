@@ -1,5 +1,5 @@
 import Fastify from 'fastify'
-import dbConnector from './our-db-connector'
+import { dbConnector } from './our-db-connector.js'
 import { routes as firstRoute } from './our-first-route.js'
 
 const fastify = Fastify({
