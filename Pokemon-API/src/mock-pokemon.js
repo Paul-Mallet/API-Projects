@@ -1,4 +1,4 @@
-const pokemons = [
+export const pokemons = [
     {
      id: 1,
      name: "Bulbizarre",
@@ -108,5 +108,14 @@ const pokemons = [
      created: new Date()
     }
    ];
-     
-   module.exports = pokemons
+
+//    module.exports = pokemons
+
+export const getUniqueId = (pokemons) => {
+    const pokemonsIds = pokemons.map(pokemon => pokemon.id) //retourne un tab avec les id des pokemons
+    const maxId = pokemonsIds.reduce((a,b) => Math.max(a,b))  //récup l'id le plus grand(le dernier)
+    const uniqueId = maxId + 1  //lui ajoute 1
+    return uniqueId
+}
+
+// c'est la database qui attribut un id unique, là c'est manuellement
