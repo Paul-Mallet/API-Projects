@@ -11,11 +11,30 @@
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const { success, getUniqueId } = require('./helper.js')  // {} : affectation destructurée
 let pokemons = require('./mock-pokemon.js')
 
 const app = express()
 const port = 3000
+
+// 1ère Connexion à MongoDB
+// 1. URL
+const mongoDBURL = 'mongodb://0.0.0.0:27017/test_database'
+// 2. Configuration et connexion à MongoDB
+mongoose.connect(mongoDBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+// 3. Tester la connexion
+.then(() => {
+      console.log('Connexion au serveur MongoDB établie avec succès');
+      // Vous pouvez commencer à interagir avec la base de données ici
+})
+.catch((error) => {
+      console.error('Erreur lors de la connexion à MongoDB:', error.message);
+})
+
 
 // 1er middleware, peut le raccourcir
 const logger = (req, res, next) => {
