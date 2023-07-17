@@ -14,6 +14,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const { success, getUniqueId } = require('./helper.js')  // {} : affectation destructurée
 let pokemons = require('./mock-pokemon.js')
+const PokemonModel = require("./models/pokemon.js")
 
 const app = express()
 const port = 3000
@@ -34,6 +35,24 @@ mongoose.connect(mongoDBURL, {
 .catch((error) => {
       console.error('Erreur lors de la connexion à MongoDB:', error.message);
 })
+
+// 1ère Synchronisation du Model
+run()
+async function run() {
+	try {
+			const pokemon = await PokemonModel.create({
+                name: "Bulbizarre",
+                hp: 25,
+                cp: 5,
+                picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
+                types: ["Plante", "Poison"]
+            })
+            console.log(`${pokemon.name} créé dans la collection PokemonModel !`)
+            console.log(pokemon)
+	} catch(e) {
+		console.log(e.message) //errors.age...
+	}
+} 
 
 
 // 1er middleware, peut le raccourcir
