@@ -1,11 +1,11 @@
 // CommonJS
 const express = require('express')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const run = require('./db/mongoose.js')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // 1er middleware, peut le raccourcir
 const logger = (req, res, next) => {
@@ -17,11 +17,16 @@ app.use(logger)
 
 app
     // .use(favicon(__dirname + '/favicon.ico'))   //doit changer __dirname avec url si ES6(voir Grafikart), tester CJS
-    .use(morgan('dev'))
+    // .use(morgan('dev'))
     .use(bodyParser.json()) //applique le middleware(parse) à tous les json
 
 // 1er importation de la liste de pokemons dans MongoDB
 run()
+
+// Endpoint Heroku(Déploiement)
+app.get("./", (req, res) => {
+    res.json("Hello, Heroku ! 😊")
+})
 
 // 1ère Routes Module
 require("./routes/findAllPokemons.js")(app) //raccourci de syntaxe : const ...
