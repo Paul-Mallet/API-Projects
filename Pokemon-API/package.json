@@ -4,7 +4,8 @@
   "description": "a test api to understand",
   "main": "app.js",
   "scripts": {
-    "dev": "node --watch src/app.js",
+    "start": "SET NODE_ENV=production && node src/app.js",
+    "dev": "SET NODE_ENV=development && node --watch src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,8 +22,5 @@
     "mongoose": "^7.3.4",
     "serve-favicon": "^2.5.0",
     "validator": "^13.9.0"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0"
   }
 }
