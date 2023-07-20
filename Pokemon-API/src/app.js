@@ -30,6 +30,8 @@ require("./routes/createPokemon.js")(app)
 require("./routes/updatePokemon.js")(app)
 require("./routes/deletePokemon.js")(app)
 
+require("./routes/login.js")(app)
+
 // 1er Code statut d'Erreur
 app.use(({res}) => {
     const message = `Impossible de trouver la page demandée ! Essayer une autre URL.`
