@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
+const validTypes = ["Plante","Poison", "Feu", "Eau", "Fée", "Electrik", "Insecte", "Vol", "Normal"]
 
 const pokemonSchema = new mongoose.Schema({
 	id: {
@@ -6,23 +8,51 @@ const pokemonSchema = new mongoose.Schema({
     },
 	name: {
 		type: String,
-		required: true,
+		required: [true, 'Le nom est une propriété requise.'],
+		unique: true,	//la liste s'intègre 2 fois dans la db -> et comme le unique : true alors fonctionne pas et renvoie error / gérer le message d'error qui prend le 500 par défaut -> trouver ConstraintError
+		trim: true,
     },
 	hp: {
 		type: Number,
-		required: true,
+		required: [true, 'Les hp sont une propriété requise.'],
+		min: [1, 'Les hp ne peuvent pas être inférieur à 1'],
+		max: [999, 'Les hp ne peuvent pas être supérieur à 999'],
 	},
     cp: {
 		type: Number,
-		required: true,
+		required: [true, 'Les cp sont une propriété requise.'],
+		min: [1, 'Les cp ne peuvent pas être inférieur à 1'],
+		max: [999, 'Les cp ne peuvent pas être supérieur à 999'],
 	},
     picture: {
 		type: String,
-		required: true,
+		required: [true, "L'image est une propriété requise."],
+		trim: true,
+		validate: {
+			validator: function (value) {
+				return validator.isURL(value);
+			},
+			message: props => `Utilisez uniquement une URL pour l'image et pas ${props.value}.`
+		}
 	},
     types: {
-		type: [String],
-		required: true,
+		type: [String],	//pas besoin de get et setter
+		required: [true, "L'image est une propriété requise."],
+		trim: true,
+		validate: {
+			validator: function (value) {
+				if(!value) {
+					throw new Error('Un pokémon doit au moins avoir 1 type.')
+				} else if(value.length > 3) {
+					throw new Error('Un pokémon ne peut pas avoir plus de 3 type.')
+				}
+				value.forEach(type => {
+					if(!validTypes.includes(type)) {
+						throw new Error('Le type du pokémon doit exister.')
+					}
+				});
+			},
+		},
 	},
     createdAt: {
 		type: Date,
@@ -32,7 +62,7 @@ const pokemonSchema = new mongoose.Schema({
 	updatedAt: {
 		type: Date,
 		default: () => Date.now(),
-	}
+	},
 })
 
 module.exports = mongoose.model("PokemonModel", pokemonSchema)
