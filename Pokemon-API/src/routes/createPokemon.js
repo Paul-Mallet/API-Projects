@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const PokemonModel = require("../models/pokemon.js")
+const auth = require("../auth/auth.js")
 
 module.exports = (app) => {
-  app.post('/api/pokemons', (req, res) => {
+  app.post('/api/pokemons', auth, (req, res) => {
     PokemonModel.create(req.body)   //create pour créer un nv doc, insertOne() pour insérer un déjà existant !
       .then(pokemon => {
         const message = `Le pokémon ${req.body.name} a bien été créé.`
@@ -20,3 +21,4 @@ module.exports = (app) => {
       })
   })
 }
+// pauma\Desktop\Full-Stack\Exercises\JS\Back-End\Node.js\Simon\API-Projects\Pokemon-API

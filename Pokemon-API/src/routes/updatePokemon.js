@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const PokemonModel = require("../models/pokemon.js")
+const auth = require("../auth/auth.js")
 
 module.exports = (app) => {
-  app.put('/api/pokemons/:id', (req, res) => {
+  app.put('/api/pokemons/:id', auth, (req, res) => {
     const id = req.params.id
     PokemonModel.findOneAndUpdate({_id: id}, req.body, { new: true, runValidators: true })
       .then((pokemon) => {

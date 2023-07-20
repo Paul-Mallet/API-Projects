@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const PokemonModel = require("../models/pokemon.js")
-  
+const auth = require("../auth/auth.js")
+
 module.exports = (app) => {
-  app.get('/api/pokemons/:id', (req, res) => {
+  app.get('/api/pokemons/:id', auth, (req, res) => {
     PokemonModel.findById(req.params.id)
       .then(pokemon => {
         if (pokemon === null) {
