@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const PokemonModel = require("../models/pokemon.js")
+const auth = require("../auth/auth.js")
 
 module.exports = (app) => {
-  app.delete('/api/pokemons/:id', (req, res) => {
+  app.delete('/api/pokemons/:id', auth, (req, res) => {
     const id = req.params.id
     PokemonModel.findByIdAndDelete(id, req.body, { new: true })
       .then((pokemon) => {
