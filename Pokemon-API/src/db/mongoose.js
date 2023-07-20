@@ -19,14 +19,14 @@ mongoose.connect(mongoDBURL, {
 })
 
 // 1ère Synchronisation du Model
-run()
+// run()
 async function run() {
 	try {
-			const pokemon = await PokemonModel.insertMany(pokemons)
-            console.log(`${pokemon.name} créé dans la collection PokemonModel !`)
+		const pokemon = await PokemonModel.insertMany(pokemons)
+            console.log(`${pokemons.name} créé dans la collection PokemonModel !`)
             console.log(pokemon)
 	} catch(e) {
-		console.log(e.message) //errors.age...
+		console.log(`Erreur lors de l'insertion dans MongoDB:`, e.message) //errors.age...
 	}
 }
 

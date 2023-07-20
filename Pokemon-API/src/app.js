@@ -1,12 +1,3 @@
-// ES6 (problème export let pokemons)
-// import express from "express"
-// import morgan from "morgan"
-// import bodyParser from "body-parser"
-// import favicon from "serve-favicon"
-// import { success, getUniqueId } from "./helper.js"
-// import { pokemons } from "./mock-pokemon.js"
-
-
 // CommonJS
 const express = require('express')
 const morgan = require('morgan')
@@ -25,11 +16,38 @@ const logger = (req, res, next) => {
 app.use(logger)
 
 app
-    // .use(favicon(__dirname + '/favicon.ico'))   //doit changer __dirname avec url(voir Grafikart)
+    // .use(favicon(__dirname + '/favicon.ico'))   //doit changer __dirname avec url si ES6(voir Grafikart), tester CJS
     .use(morgan('dev'))
     .use(bodyParser.json()) //applique le middleware(parse) à tous les json
 
+// 1er importation de la liste de pokemons dans MongoDB
 run()
+
+// 1ère Routes Module
+require("./routes/findAllPokemons.js")(app) //raccourci de syntaxe : const ...
+require("./routes/findByIdPokemon.js")(app)
+require("./routes/createPokemon.js")(app)
+require("./routes/updatePokemon.js")(app)
+require("./routes/deletePokemon.js")(app)
+
+// 1er Code statut d'Erreur
+app.use(({res}) => {
+    const message = `Impossible de trouver la page demandée ! Essayer une autre URL.`
+    res.status(404).json({message})
+})
+
+app.listen(port, () => console.log(`Notre app Node est démarrée sur : http://localhost:${port}`))
+
+
+
+// ES6 (problème export let pokemons)
+// import express from "express"
+// import morgan from "morgan"
+// import bodyParser from "body-parser"
+// import favicon from "serve-favicon"
+// import { success, getUniqueId } from "./helper.js"
+// import { pokemons } from "./mock-pokemon.js"
+
 
 // // route de base pour savoir si API rest est bien démarrée
 // app.get('/', function (req, res) {
@@ -78,5 +96,3 @@ run()
 //     const message = `Le pokémon ${pokemonDeleted.name} a bien été supprimé.`
 //     res.json(success(message, pokemonDeleted))
 // })
-
-app.listen(port, () => console.log(`Notre app Node est démarrée sur : http://localhost:${port}`))
