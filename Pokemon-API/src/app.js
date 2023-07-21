@@ -1,5 +1,6 @@
 // CommonJS
 const express = require('express')
+const cors = require('cors')
 // const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const run = require('./db/mongoose.js')
@@ -19,6 +20,7 @@ app
     // .use(favicon(__dirname + '/favicon.ico'))   //doit changer __dirname avec url si ES6(voir Grafikart), tester CJS
     // .use(morgan('dev'))
     .use(bodyParser.json()) //applique le middleware(parse) à tous les json
+    .use(cors())
 
 // 1er importation de la liste de pokemons dans MongoDB
 run()

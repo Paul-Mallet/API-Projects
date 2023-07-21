@@ -4,23 +4,42 @@ const PokemonModel = require("../models/pokemon.js")
 const UserModel = require("../models/user.js")
 const bcrypt = require('bcrypt')
 
-// 1ère Connexion à MongoDB
-// 1. URL
-const mongoDBURL = 'mongodb://0.0.0.0:27017/test_database'
-// 2. Configuration et connexion à MongoDB
-mongoose.connect(mongoDBURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-// 3. Tester la connexion
-.then(() => {
-      console.log('Connexion au serveur MongoDB établie avec succès');
-})
-.catch((error) => {
-      console.error('Erreur lors de la connexion à MongoDB:', error.message);
-})
+let mongoDBURL
+// 1ère connexion à MongoDB(production)
+if(process.env.NODE_ENV === 'production') {
+      mongoDBURL = 'mongodb://0.0.0.0:27017/test_database'
+      mongoose.connect(mongoDBURL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+      })
+      // 3. Tester la connexion
+      .then(() => {
+            console.log('Connexion au serveur MongoDB en production établie avec succès');
+      })
+      .catch((error) => {
+            console.error('Erreur lors de la connexion à MongoDB:', error.message);
+      })
+} else {
+      // 1ère Connexion à MongoDB(dev)
+      // 1. URL
+      mongoDBURL = 'mongodb://0.0.0.0:27017/test_database'
+      // 2. Configuration et connexion à MongoDB
+      mongoose.connect(mongoDBURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      })
+      // 3. Tester la connexion
+      .then(() => {
+            console.log('Connexion au serveur MongoDB en développement établie avec succès');
+      })
+      .catch((error) => {
+            console.error('Erreur lors de la connexion à MongoDB:', error.message);
+      })
+}
 
-// 1ère Synchronisation du Model
+
+
+// 1ère Synchronisation du Model    /   Faire les modif pour que ça insère qu'une fois les données la 1ère fois
 // run()
 async function run() {
 	try {
